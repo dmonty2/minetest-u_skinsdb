@@ -2,6 +2,14 @@
 
 -- Copyright (c) 2012 cornernote, Dean Montgomery
 -- License: GPLv3
+-- Boilerplate to support localized strings if intllib mod is installed.
+local S
+if intllib then
+	S = intllib.Getter()
+else
+	S = function(s) return s end
+end
+
 u_skins = {}
 u_skins.type = { SPRITE=0, MODEL=1 }
 u_skins.pages = {}
@@ -50,7 +58,7 @@ unified_inventory.register_page("u_skins", {
 			formspec = formspec
 				.. "image[0,.75;1,2;"..u_skins.u_skins[name].."_preview.png]"
 				.. "image[1,.75;1,2;"..u_skins.u_skins[name].."_preview_back.png]"
-				.. "label[6,.5;Raw texture:]"
+				.. "label[6,.5;"..S("Raw texture:").."]"
 				.. "image[6,1;2,1;"..u_skins.u_skins[name]..".png]"
 			
 		else
@@ -61,20 +69,20 @@ unified_inventory.register_page("u_skins", {
 		local meta = u_skins.meta[u_skins.u_skins[name]]
 		if meta then
 			if meta.name then
-				formspec = formspec .. "label[2,.5;Name: "..meta.name.."]"
+				formspec = formspec .. "label[2,.5;"..S("Name: %s"):format(meta.name).."]"
 			end
 			if meta.author then
-				formspec = formspec .. "label[2,1;Author: "..meta.author.."]"
+				formspec = formspec .. "label[2,1;"..S("Author: %s"):format(meta.author).."]"
 			end
 			if meta.description then
 				formspec = formspec .. "label[2,1.5;"..meta.description.."]"
 			end
 			if meta.comment then
-				formspec = formspec .. 'label[2,2;"'..meta.comment..'"]'
+				formspec = formspec .. 'label[2,2;'..S('License: "%s"'):format(meta.comment)..']'
 			end
 		end
 
-		formspec = formspec .. "button[.75,3;6.5,.5;u_skins_page_0;Change]"
+		formspec = formspec .. "button[.75,3;6.5,.5;u_skins_page_0;"..S("Change").."]"
 		return {formspec=formspec}
 	end,
 })
@@ -112,7 +120,7 @@ for x = 0, math.floor(#u_skins.list/16+1) do
 			else
 				formspec = formspec .. "button[0,4;1,.5;u_skins_page_"..page..";<<]"
 			end
-			formspec = formspec .. "button[.75,4;6.5,.5;u_skins_page_"..page..";Page "..(page+1).."/"..math.floor(#u_skins.list/16+1).."]" -- a button is used so text is centered
+			formspec = formspec .. "button[.75,4;6.5,.5;u_skins_page_"..page..";"..S("Page %s"):format((page+1)).."/"..math.floor(#u_skins.list/16+1).."]" -- a button is used so text is centered
 			if index > 16 then
 				formspec = formspec .. "button[7,4;1,.5;u_skins_page_"..(page+1)..";>>]"
 			else
