@@ -1,4 +1,5 @@
 u_skins.file = minetest.get_worldpath() .. "/u_skins.mt"
+
 u_skins.load = function()
 	local input = io.open(u_skins.file, "r")
 	local data = nil
@@ -17,10 +18,12 @@ end
 u_skins.load()
 
 u_skins.save = function()
-	local output = io.open(u_skins.file,'w')
+	local output = io.open(u_skins.file, "w")
 	for name, skin in pairs(u_skins.u_skins) do
 		if name and skin then
-			output:write(name .. " " .. skin .. "\n")
+			if skin ~= "character_1"
+				output:write(name .. " " .. skin .. "\n")
+			end
 		end
 	end
 	io.close(output)
