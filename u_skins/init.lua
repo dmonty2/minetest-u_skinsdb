@@ -24,7 +24,7 @@ dofile(u_skins.modpath.."/players.lua")
 
 
 u_skins.update_player_skin = function(player)
-	name = player:get_player_name()
+	local name = player:get_player_name()
 	if u_skins.get_type(u_skins.u_skins[name]) == u_skins.type.SPRITE then
 		player:set_properties({
 			visual = "upright_sprite",
@@ -44,7 +44,7 @@ end
 -- Display Current Skin
 unified_inventory.register_page("u_skins", {
 	get_formspec = function(player)
-		name = player:get_player_name()
+		local name = player:get_player_name()
 		local formspec = "background[0.06,0.99;7.92,7.52;ui_misc_form.png]"
 		if u_skins.get_type(u_skins.u_skins[name]) == u_skins.type.MODEL then
 			formspec = formspec
@@ -88,7 +88,7 @@ unified_inventory.register_button("u_skins", {
 for x = 0, math.floor(#u_skins.list/16+1) do
 	unified_inventory.register_page("u_skins_page_"..x, {
 		get_formspec = function(player)
-			page = u_skins.pages[player:get_player_name()]
+			local page = u_skins.pages[player:get_player_name()]
 			if page == nil then page = 0 end
 			local formspec = "background[0.06,0.99;7.92,7.52;ui_misc_form.png]"
 			local index = 0
