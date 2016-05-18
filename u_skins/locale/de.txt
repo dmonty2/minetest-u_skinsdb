@@ -1,0 +1,8 @@
+# Translation by Xanthin
+
+Raw texture: = Rohtextur
+Name: %s = Name: %s
+Author: %s = Autor: %s
+Change = Wechseln
+Page %s = Seite %s
+License: "%s" = Lizenz: "%s"
